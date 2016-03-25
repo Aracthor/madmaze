@@ -65,8 +65,8 @@ int			create_islands_map(struct s_map *map,
     {
       do
       {
-	pos = coordonne(random() % (map->longer - 2) + 1,
-			random() % (map->larger - 2) + 1);
+	pos = coordonne(random() % (map->width - 2) + 1,
+			random() % (map->height - 2) + 1);
       } while (MAP_CASE(map, pos) != wall || is_surrounded(map, pos));
       islands = add_coord_to_list(islands, pos);
       if (islands_nbr != 0)

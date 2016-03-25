@@ -8,14 +8,16 @@
 
 int			main(int argc, char **argv)
 {
-  struct s_params	params;
-  int			return_value;
+    struct s_params	params;
+    int			return_value;
 
-  srandom(getpid() * time(NULL));
-  return_value = read_params(&params, argc, argv);
-  if (return_value == 0)
-    return_value = create_map(&params);
+    srandom(getpid() * time(NULL));
+    return_value = read_params(&params, argc, argv);
+    if (return_value == 0)
+    {
+	return_value = create_map(&params);
+    }
 
-  return (return_value);
+    return (return_value);
 }
 

@@ -5,16 +5,16 @@ void	create_bordures(struct s_map *map)
 {
   coord	pos;
 
-  for (pos.x = 0; pos.x < map->longer; ++pos.x)
+  for (pos.x = 0; pos.x < map->width; ++pos.x)
     {
       map->cases[0][pos.x] = wall;
-      map->cases[map->larger - 1][pos.x] = wall;
+      map->cases[map->height - 1][pos.x] = wall;
     }
 
-  for (pos.y = 0; pos.y < map->larger; ++pos.y)
+  for (pos.y = 0; pos.y < map->height; ++pos.y)
     {
       map->cases[pos.y][0] = wall;
-      map->cases[pos.y][map->longer - 1] = wall;
+      map->cases[pos.y][map->width - 1] = wall;
     }
 }
 
@@ -22,8 +22,8 @@ void	full_walls(struct s_map *map)
 {
   coord	pos;
 
-  for (pos.x = 0; pos.x < map->longer; ++pos.x)
-    for (pos.y = 0; pos.y < map->larger; ++pos.y)
+  for (pos.x = 0; pos.x < map->width; ++pos.x)
+    for (pos.y = 0; pos.y < map->height; ++pos.y)
       map->cases[pos.y][pos.x] = wall;
 }
 
@@ -62,6 +62,6 @@ void	draw_line(struct s_map *map, coord begin, coord end)
 bool	is_in_map(struct s_map *map, coord pos)
 {
   return (pos.x >= 0 && pos.y >= 0 &&
-	  pos.x < map->longer && pos.y < map->larger);
+	  pos.x < map->width && pos.y < map->height);
 }
 

@@ -18,7 +18,7 @@ static int	create_file(char *name, char *data)
 
   if (write(fd, data, strlen(data)) != (int)strlen(data))
     return (1);
-return (0);
+  return (0);
 }
 
 static char	*empl_data(struct s_map *map)
@@ -27,27 +27,27 @@ static char	*empl_data(struct s_map *map)
   char		*data;
   char		*line;
 
-  data = malloc(sizeof(char) * (map->longer + 1) * (map->larger + 1));
-  line = malloc(sizeof(char) * map->longer + 1);
+  data = malloc(sizeof(char) * (map->width + 1) * (map->height + 1));
+  line = malloc(sizeof(char) * map->width + 1);
+  data[0] = '\0';
 
-  sprintf(data, "%d:%d\n", map->longer, map->larger);
-  for (pos.y = 0; pos.y < map->larger; ++pos.y)
+  for (pos.y = 0; pos.y < map->height; ++pos.y)
   {
-    for (pos.x = 0; pos.x < map->longer; ++pos.x)
+    for (pos.x = 0; pos.x < map->width; ++pos.x)
        switch(map->cases[pos.y][pos.x])
    {
        case (empty):
-       line[pos.x] = ' ';
-       break;
+	 line[pos.x] = map->chars.empty;
+	 break;
        case (wall):
-       line[pos.x] = '*';
-       break;
+         line[pos.x] = map->chars.wall;
+         break;
        case (begin):
-       line[pos.x] = '1';
-       break;
+         line[pos.x] = map->chars.begin;
+         break;
        case (end):
-       line[pos.x] = '2';
-       break;
+	 line[pos.x] = map->chars.end;
+         break;
    }
    line[pos.x] = '\0';
    strcat(data, line);
@@ -65,11 +65,12 @@ int		create_map(struct s_params *params)
   int		return_value;
   char		*data;
 
-  map.longer = params->longer;
-  map.larger = params->larger;
-  map.cases = malloc(sizeof(enum e_case *) * map.larger);
-  for (i = 0; i < map.larger; ++i)
-    map.cases[i] = malloc(sizeof(enum e_case) * map.longer);
+  map.width = params->width;
+  map.height = params->height;
+  map.cases = malloc(sizeof(enum e_case *) * map.height);
+  map.chars = params->chars;
+  for (i = 0; i < map.height; ++i)
+    map.cases[i] = malloc(sizeof(enum e_case) * map.width);
 
 return_value = params->creator(&map, params);
 
@@ -95,8 +96,8 @@ bool	map_is_empty(struct s_map *map)
 
   empty = true;
 
-  for (pos.y = 1; empty == true && pos.y < map->larger - 1; ++pos.y)
-    for (pos.x = 1; empty == true && pos.x < map->larger - 1; ++pos.x)
+  for (pos.y = 1; empty == true && pos.y < map->height - 1; ++pos.y)
+    for (pos.x = 1; empty == true && pos.x < map->height - 1; ++pos.x)
       if (MAP_CASE(map, pos) == wall)
          empty = false;
 
@@ -126,7 +127,7 @@ void	destroy_map(struct s_map *map)
 {
     int	i;
 
-    for (i = 0; i < map->larger; ++i)
+    for (i = 0; i < map->height; ++i)
       free(map->cases[i]);
   free(map->cases);
 }

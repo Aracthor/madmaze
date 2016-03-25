@@ -2,16 +2,16 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project("madmaze")
 
+if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
+   "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
+ set(warnings "-Wall -Wextra -Werror -Wmissing-prototypes")
+elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")
+  set(warnings "/W4 /WX /EHsc")
+endif()
+
 if (NOT CONFIGURED_ONCE)
   set(CMAKE_C_FLAGS "${warnings}"
     CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
-if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" OR
-   "${CMAKE_C_COMPILER_ID}" STREQUAL "Clang")
- set(warnings "-Wall -Wextra -Werror")
-elseif("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")
-  set(warnings "/W4 /WX /EHsc")
 endif()
 
 
@@ -25,3 +25,5 @@ foreach(file ${SRCS_FILES})
 endforeach()
 
 add_executable(madmaze ${SRCS})
+
+target_link_libraries(madmaze pargse)

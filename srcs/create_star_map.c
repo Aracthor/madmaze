@@ -14,8 +14,8 @@ int			create_star_map(struct s_map *map, void *params_void)
   params = (struct s_params *)params_void;
   create_bordures(map);
 
-  for (pos.y = 1; pos.y < map->larger - 1; ++pos.y)
-    for (pos.x = 1; pos.x < map->longer - 1; ++pos.x)
+  for (pos.y = 1; pos.y < map->height - 1; ++pos.y)
+    for (pos.x = 1; pos.x < map->width - 1; ++pos.x)
       {
 	map->cases[pos.y][pos.x] =
 	(random() % 100 + 1 > params->creator_params.stars_percentage ?
@@ -26,7 +26,7 @@ int			create_star_map(struct s_map *map, void *params_void)
 
   for (i = 0; i < params->begins; ++i)
     {
-      pos = coordonne(random() % map->longer, random() % map->larger);
+      pos = coordonne(random() % (map->width - 2) + 1, random() % (map->height - 2) + 1);
       if (MAP_CASE(map, pos) == empty || MAP_CASE(map, pos) == wall)
 	MAP_CASE(map, pos) = begin;
       else
@@ -34,7 +34,7 @@ int			create_star_map(struct s_map *map, void *params_void)
     }
   for (i = 0; i < params->ends; ++i)
     {
-      pos = coordonne(random() % map->longer, random() % map->larger);
+      pos = coordonne(random() % (map->width - 2) + 1, random() % (map->height - 2) + 1);
       if (MAP_CASE(map, pos) == empty || MAP_CASE(map, pos) == wall)
 	MAP_CASE(map, pos) = end;
       else

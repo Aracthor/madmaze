@@ -61,8 +61,8 @@ int			create_laby_map(struct s_map *map, void *params_void)
   full_walls(map);
   empty_number = params->creator_params.empty_number;
 
-  pos.x = random() % (map->longer - 2) + 1;
-  pos.y = random() % (map->larger - 2) + 1;
+  pos.x = random() % (map->width - 2) + 1;
+  pos.y = random() % (map->height - 2) + 1;
 
   MAP_CASE(map, pos) = begin;
   empty_cases = 1;
@@ -87,7 +87,7 @@ int			create_laby_map(struct s_map *map, void *params_void)
     {
       for (i = 1; i < params->begins; ++i)
 	{
-	  pos = coordonne(random() % map->longer, random() % map->larger);
+	  pos = coordonne(random() % map->width, random() % map->height);
 	  if (MAP_CASE(map, pos) == empty)
 	    MAP_CASE(map, pos) = begin;
 	  else
@@ -95,7 +95,7 @@ int			create_laby_map(struct s_map *map, void *params_void)
 	}
       for (i = 1; i < params->ends; ++i)
 	{
-	  pos = coordonne(random() % map->longer, random() % map->larger);
+	  pos = coordonne(random() % map->width, random() % map->height);
 	  if (MAP_CASE(map, pos) == empty)
 	    MAP_CASE(map, pos) = end;
 	  else

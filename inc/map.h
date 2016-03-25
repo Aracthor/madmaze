@@ -4,8 +4,8 @@
 # include "params.h"
 
 # define IS_IN_MAP(map, pos)		(pos.x >= 1 && pos.y >= 1 &&	\
-					 pos.x < map->longer - 1 &&	\
-					 pos.y < map->larger - 1)
+					 pos.x < map->width - 1 &&	\
+					 pos.y < map->height - 1)
 
 # define MAP_CASE(map, pos)		(map->cases[pos.y][pos.x])
 
