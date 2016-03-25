@@ -68,7 +68,7 @@ void	display_map(struct s_map *map, coord *marked_pos, coord *second_pos)
 
   display[pc] = '\0';
   printf("%s", display);
-  /* usleep(DISPLAY_USLEEP); */
+  usleep(DISPLAY_USLEEP);
   free(display);
 }
 

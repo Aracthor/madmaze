@@ -18,7 +18,7 @@ static t_creator	get_creator(char *creator_name)
     creators[1] = &create_laby_map;
     creators[2] = &create_islands_map;
     names[0] = "random";
-    names[1] = "laby";
+    names[1] = "lines";
     names[2] = "islands";
 
     for (i = 0; i < CREATORS_NBR; i++)
